@@ -5,8 +5,7 @@ class Api::ContactsController < ApplicationController
   end
 
   def get_all
-    @message = "message"
+    @contacts = Contact.all
     render "all_view.json.jbuilder"
   end
-
 end
