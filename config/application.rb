@@ -20,7 +20,7 @@ Bundler.require(*Rails.groups)
 module ContactsApp
   class Application < Rails::Application
     config.generators.assets = false
-        config.generators.helper = false
+    config.generators.helper = false
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
