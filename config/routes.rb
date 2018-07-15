@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     patch "/contacts/:id" => "contacts#update"
     #delete a specific dontact
     delete "/contacts/:id" => "contacts#destroy"
+    post "/users" => "users#create"
+    post "/sessions" => "sessions#create"
   end
   #Api::ContactsController#get_all is missing a template for this request format and variant.<-- read later
 end

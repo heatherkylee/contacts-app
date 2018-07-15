@@ -6,6 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-5.times do
-  contact = Contact.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, phone_number: Faker::PhoneNumber.cell_phone)
+# 5.times do
+#   contact = Contact.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, phone_number: Faker::PhoneNumber.cell_phone)
+# end
+
+# Associate User ID (in contacts table) with ID in User table
+
+user = User.all
+contacts = Contact.all
+
+contacts.each do |contact|
+  contact.user_id = user.sample.id
+  contact.save
 end
