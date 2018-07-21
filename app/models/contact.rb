@@ -1,5 +1,6 @@
 class Contact < ApplicationRecord
   belongs_to :user
+  has_many :groups, through: :contact_groups
 
   def month_day_year #to display formatted update at
     updated_at.strftime("%B %e, %Y")
