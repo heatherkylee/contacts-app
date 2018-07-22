@@ -1,5 +1,3 @@
-
-
 json.id contact.id
 json.first_name contact.first_name
 json.middle_name contact.middle_name
@@ -8,6 +6,7 @@ json.last_name contact.last_name
 json.phone_number contact.japan_country_code
 json.email contact.email
 json.bio contact.bio
+json.group contact.groups
 json.updated_at contact.updated_at
 
 json.formatted do

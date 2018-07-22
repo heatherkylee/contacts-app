@@ -1,6 +1,5 @@
-# json.array! @contacts, partial: 'contact', as: :contact
+json.array! @contacts, partial: 'contact', as: :contact
 
-json.array! (@contacts, {:partial => "contact", :as => "contact"})
 # json.array! @contacts.each do |contact|
 #   json.id contact.id
 #   json.first_name contact.first_name
