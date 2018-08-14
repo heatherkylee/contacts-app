@@ -92,7 +92,15 @@ var ContactsPage = {
   data: function() {
     return {
       message: "Contacts!",
-      contacts: []
+      contacts: [],
+      contactDetails: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        middleName: "",
+        bio: ""
+      }
     };
   },
   created: function() {
@@ -101,7 +109,13 @@ var ContactsPage = {
       this.contacts = response.data;
     }.bind(this));
   },
-  methods: {},
+  methods: {
+    moreContactInfo: function(inputContact) {
+      console.log("display additional contact info");
+      this.contactDetails = inputContact;
+      console.log(this.contactDetails);
+    }
+  },
   computed: {}
 };
 
@@ -146,6 +160,24 @@ var ContactsNewPage = {
   }
 };
 
+var ContactsEditPage = {
+  template: "#contacts-edit-page",
+  data: function() {
+    return {
+      message: "Contacts!",
+      contacts: []
+    };
+  },
+  created: function() {
+    axios.get("/api/contacts").then(function(response) {
+      console.log(response.data);
+      this.contacts = response.data;
+    }.bind(this));
+  },
+  methods: {},
+  computed: {}
+};
+
 var router = new VueRouter({
   routes: [
     { path: "/", component: HomePage },
@@ -153,7 +185,8 @@ var router = new VueRouter({
     { path: "/login", component: LoginPage },
     { path: "/logout", component: LogoutPage },
     { path: "/contacts", component: ContactsPage },
-    { path: "/contacts/new", component: ContactsNewPage }
+    { path: "/contacts/new", component: ContactsNewPage },
+    { path: "/contacts/:id/edit", component: ContactsEditPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

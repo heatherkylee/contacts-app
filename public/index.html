@@ -129,13 +129,79 @@
       <p>Last Name: {{ contact.last_name }}</p>
       <p>Email: {{ contact.email }}</p>
       <p>Phone Number: {{ contact.phone_number }}</p>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" v-on:click="moreContactInfo(contact)">
+        More Contact Info
+      </button>
       <hr>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{contactDetails["formatted"]}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>First Name: {{contactDetails.first_name}}</p>
+            <p>Middle Name: {{contactDetails.middle_name}}</p>
+            <p>Last Name: {{contactDetails.last_name}}</p>
+            <p>Email: {{contactDetails.email}}</p>
+            <p>Phone Number: {{contactDetails.phoneNumber}}</p>
+            <p>Bio: {{contactDetails.bio}}</p>
+            <p>Birthday: {{contactDetails.formatted}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="contacts-new-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Add a New Contact</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" v-model="contact.firstName">
+      </div>
+      <div class="form-group">
+        <label>Middle Name</label>
+        <input type="text" class="form-control" v-model="contact.middleName">
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control" v-model="contact.lastName">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control" v-model="contact.email">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="text" class="form-control" v-model="contact.phoneNumber">
+      </div>
+      <div class="form-group">
+        <label>Bio</label>
+        <input type="text" class="form-control" v-model="contact.bio">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
     </div>
 
   </div>
 </template>
 
-<template id="contacts-new-page">
+<template id="contacts-edit-page">
   <div class="vue-component">
 
     <div class="container">
