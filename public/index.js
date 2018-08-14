@@ -65,7 +65,7 @@ var LoginPage = {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
-          router.push("/");
+          router.push("/contacts");
         })
         .catch(
           function(error) {
@@ -141,7 +141,7 @@ var ContactsNewPage = {
         input_first_name: this.contact.firstName,
         input_last_name: this.contact.lastName,
         input_email: this.contact.email,
-        input_phone_number: this.contact.phone_number,
+        input_phone_number: this.contact.phoneNumber,
         input_middle_name: this.contact.middleName,
         input_bio: this.contact.bio
       };
@@ -164,18 +164,55 @@ var ContactsEditPage = {
   template: "#contacts-edit-page",
   data: function() {
     return {
-      message: "Contacts!",
-      contacts: []
+      message: "Edit Contact",
+      contact: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        middleName: "",
+        bio: ""
+      },
+      editContact: [],
+      errors: []
     };
   },
   created: function() {
-    axios.get("/api/contacts").then(function(response) {
+    axios.get("/api/contacts/" + this.$route.params.id).then(function(response) {
       console.log(response.data);
-      this.contacts = response.data;
+      this.editContact = response.data;
+      this.contact.firstName = this.editContact.first_name;
+      this.contact.middleName = this.editContact.middle_name;
+      this.contact.lastName = this.editContact.last_name;
+      this.contact.email = this.editContact.email;
+      this.contact.phoneNumber = this.editContact.phone_number;
+      this.contact.bio = this.editContact.bio;
     }.bind(this));
   },
-  methods: {},
-  computed: {}
+  methods: {
+    submit: function() {
+      var params = {
+        input_first_name: this.contact.firstName,
+        input_last_name: this.contact.lastName,
+        input_email: this.contact.email,
+        input_phone_number: this.contact.phoneNumber,
+        input_middle_name: this.contact.middleName,
+        input_bio: this.contact.bio
+      };
+      axios
+        .patch("/api/contacts/" + this.$route.params.id, params)
+        .then(function(response) {
+          console.log(response);
+          console.log("edit has been saved in db");
+          router.push("/contacts");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  }
 };
 
 var router = new VueRouter({
