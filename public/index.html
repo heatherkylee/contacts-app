@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Contact App</title>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue2-filters/dist/vue2-filters.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
@@ -124,7 +125,13 @@
   <div class="vue-component">
 
     <h1>{{ message }}</h1>
-    <div v-for="contact in contacts">
+    <div>
+      <button v-on:click="setSortAttribute('first_name')">First Name</button>
+      <button v-on:click="setSortAttribute('last_name')">Last Name</button>
+      <button v-on:click="toggleSortOrder()">A-Z Toggle</button>
+    </div>
+    <!-- <div v-for="contact in contacts"> -->
+    <div v-for="contact in orderBy(contacts, sortAttribute, sortOrder)">
       <p>First Name: {{ contact.first_name }}</p>
       <p>Last Name: {{ contact.last_name }}</p>
       <p>Email: {{ contact.email }}</p>
@@ -139,7 +146,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{contactDetails["formatted"]}}</h5>
+            <h5 class="modal-title" id="exampleModalLabel">{{contactDetails.formatted}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

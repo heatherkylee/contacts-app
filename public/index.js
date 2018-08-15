@@ -100,7 +100,9 @@ var ContactsPage = {
         phoneNumber: "",
         middleName: "",
         bio: ""
-      }
+      },
+      sortAttribute: "first_name",
+      sortOrder: 1
     };
   },
   created: function() {
@@ -114,6 +116,12 @@ var ContactsPage = {
       console.log("display additional contact info");
       this.contactDetails = inputContact;
       console.log(this.contactDetails);
+    },
+    setSortAttribute: function(attribute) {
+      this.sortAttribute = attribute;
+    },
+    toggleSortOrder: function() {
+      this.sortOrder = this.sortOrder * -1;
     }
   },
   computed: {}
